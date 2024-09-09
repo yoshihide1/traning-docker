@@ -1,0 +1,33 @@
+
+services:
+  server:
+    container_name: server
+    image: eclipse-temurin:21
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/server
+    working_dir: /server
+    tty: true
+  # client:
+  #   container_name: client
+  #   image: node:8.4.0
+  #   volumes:
+  #     - ./app:/root/app
+  #   working_dir: /root/app
+  #   command: bash -c 'npm install && npm start'
+  #   ports:
+  #     - "3000:3000"
+  db:
+    container_name: sample_db
+    image: postgres:16
+    volumes:
+      - sample_db_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=dev
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=sample_docker
+    ports:
+      - "5432:5432"
+volumes:
+  sample_db_volume:
